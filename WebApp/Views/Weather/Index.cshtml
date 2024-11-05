@@ -1,0 +1,43 @@
+﻿@model WebApp.Models.WeatherForecastModel
+
+@{
+    ViewData["Title"] = "Weather Forecast";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Weather Forecast</h2>
+
+    @using (Html.BeginForm("GetForecast", "Weather", FormMethod.Post, new { @class = "form-inline justify-content-center mb-4" }))
+    {
+        <div class="form-group mr-2">
+            @Html.LabelFor(m => m.City, new { @class = "sr-only" })
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Enter city name (e.g., Kyiv)" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Get Forecast</button>
+    }
+
+    @if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-warning text-center mt-4">
+            @TempData["Warning"]
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="card-title">Forecast for @Model.City</h3>
+                <p class="card-text">Temperature: <strong>@Model.Temperature °C</strong></p>
+                <p class="card-text">Min/Max: <strong>@Model.TemperatureMin °C</strong> / <strong>@Model.TemperatureMax °C</strong></p>
+                <p class="card-text">Precipitation: <strong>@Model.Precipitation mm</strong></p>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+    </script>
+}
